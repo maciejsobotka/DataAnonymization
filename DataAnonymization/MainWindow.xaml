@@ -1,16 +1,39 @@
 ﻿<Window x:Name="mainWin" x:Class="DataAnonymization.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Data Anonimization" Height="350" Width="576">
-    <Grid Margin="0,0,22,0">
-        <DataGrid x:Name="tableGrid" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="251" Width="328" ItemsSource="{Binding}"/>
-        <Button x:Name="buttonToXML" Content="To XML" HorizontalAlignment="Left" Margin="10,266,0,0" VerticalAlignment="Top" Width="75" Click="buttonToXML_Click"/>
-        <Button x:Name="buttonFromXML" Content="From XML" HorizontalAlignment="Left" Margin="90,266,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.133,-4" Click="buttonFromXML_Click"/>
-        <Button x:Name="buttonkAnon" Content="k-Ano" HorizontalAlignment="Left" Margin="380,94,0,0" VerticalAlignment="Top" Width="75" Click="kAnonymization_Click"/>
-        <TextBox x:Name="kValBox" HorizontalAlignment="Left" Height="23" Margin="391,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
-        <Label x:Name="kValLabel" Content="k:" HorizontalAlignment="Left" Margin="355,32,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="pidLabel" Content="PID:" HorizontalAlignment="Left" Margin="355,63,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="pidValBox" HorizontalAlignment="Left" Height="23" Margin="391,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
+        Title="Data Anonimization" Height="350" Width="481">
+    <Grid Margin="0,0,2,0">
+        <TabControl HorizontalAlignment="Left" Height="320" VerticalAlignment="Top" Width="463">
+            <TabItem Header="k-anonymization">
+                <Grid>
+                    <DataGrid x:Name="tableGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Height="251" Width="328" ItemsSource="{Binding}"/>
+                    <Button x:Name="buttonToXML" Content="To XML" HorizontalAlignment="Left" Margin="10,256,0,0" VerticalAlignment="Top" Width="75" Click="buttonToXML_Click"/>
+                    <Button x:Name="buttonFromXML" Content="From XML" HorizontalAlignment="Left" Margin="90,256,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.133,-4" Click="buttonFromXML_Click"/>
+                    <Label x:Name="kValLabel" Content="k:" HorizontalAlignment="Left" Margin="333,13,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="kValBox" HorizontalAlignment="Left" Height="23" Margin="371,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
+                    <Label x:Name="pidLabel" Content="PID:" HorizontalAlignment="Left" Margin="333,41,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="pidValBox" HorizontalAlignment="Left" Height="23" Margin="371,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
+                    <Button x:Name="buttonkAnon" Content="k-anonymization" HorizontalAlignment="Left" Margin="333,72,0,0" VerticalAlignment="Top" Width="110" Click="kAnonymization_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="(X,Y)-anonymization">
+                <Grid>
+                    <DataGrid x:Name="tableGrid2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="251" Width="328" ItemsSource="{Binding}"/>
+                    <Button x:Name="buttonToXML2" Content="To XML" HorizontalAlignment="Left" Margin="10,256,0,0" VerticalAlignment="Top" Width="75" Click="buttonToXML2_Click"/>
+                    <Button x:Name="buttonFromXML2" Content="From XML" HorizontalAlignment="Left" Margin="90,256,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.133,-4" Click="buttonFromXML2_Click"/>
+                    <Label x:Name="kValLabel2" Content="k:" HorizontalAlignment="Left" Margin="333,13,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="kValBox2" HorizontalAlignment="Left" Height="23" Margin="371,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
+                    <Label x:Name="xLabel2" Content="X:" HorizontalAlignment="Left" Margin="333,41,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="xValBox2" HorizontalAlignment="Left" Height="23" Margin="371,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
+                    <Label x:Name="yValLabel2" Content="Y:" HorizontalAlignment="Left" Margin="333,67,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="yValBox2" HorizontalAlignment="Left" Height="23" Margin="371,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
+                    <Button x:Name="buttonkAnon2" Content="(X,Y)-anonymization" HorizontalAlignment="Left" Margin="333,99,0,0" VerticalAlignment="Top" Width="119" Click="xyAnonymization_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="(X,Y)-anonymization">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>

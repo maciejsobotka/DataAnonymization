@@ -23,10 +23,12 @@ namespace DataAnonymization
     public partial class MainWindow : Window
     {
         private DataTable dt;
+        private DataTable dt2;
         public MainWindow()
         {
             InitializeComponent();
             InitializeDataGrid();
+            InitializeDataGrid2();
         }
 
         //=====================================================================
@@ -53,6 +55,30 @@ namespace DataAnonymization
             }
             tableGrid.DataContext = dt.DefaultView;
             tableGrid.ColumnWidth = 80;
+        }
+
+        private void InitializeDataGrid2()
+        {
+            dt2 = new DataTable("dataTable2");
+            if (File.Exists("dataTable2.xml"))
+            {
+                DataSet ds = new DataSet();
+                ds.ReadXml("dataTable2.xml");
+                dt2 = ds.Tables[0];
+            }
+            else
+            {
+                dt2.Columns.Add("Płeć");
+                dt2.Columns.Add("Zawód");
+                dt2.Columns.Add("Miasto");
+                dt2.Columns.Add("Choroba");
+                for (int i = 0; i < dt.Columns.Count; ++i)
+                {
+                    dt2.Columns[i].DefaultValue = String.Empty;
+                }
+            }
+            tableGrid2.DataContext = dt2.DefaultView;
+            tableGrid2.ColumnWidth = 80;
         }
 
         //=====================================================================
@@ -90,6 +116,29 @@ namespace DataAnonymization
                 pid[i] = (dt.Columns[Int32.Parse(pid[i]) - 1].ColumnName);
             KAnonymization kA = new KAnonymization(dt);
             kValBox.Text = kA.KAnonymize(pid, k).ToString();
+        }
+
+        private void buttonToXML2_Click(object sender, RoutedEventArgs e)
+        {
+            dt2.WriteXml("dataTable2.xml");
+        }
+
+        private void buttonFromXML2_Click(object sender, RoutedEventArgs e)
+        {
+            dt2 = new DataTable("dataTable2");
+            if (File.Exists("dataTable2.xml"))
+            {
+                DataSet ds = new DataSet();
+                ds.ReadXml("dataTable2.xml");
+                dt2 = ds.Tables[0];
+            }
+            tableGrid2.DataContext = dt2.DefaultView;
+            tableGrid2.ColumnWidth = 80;
+        }
+
+        private void xyAnonymization_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

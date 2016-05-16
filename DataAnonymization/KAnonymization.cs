@@ -10,8 +10,8 @@ namespace DataAnonymization
 {
     class KAnonymization
     {
-        private Hashtable dataReplace;
-        private DataTable dt;
+        protected Hashtable dataReplace;
+        protected DataTable dt;
         public KAnonymization(DataTable dt){
             dataReplace = new Hashtable();
             dataReplace.Add("*", "*");
@@ -35,7 +35,8 @@ namespace DataAnonymization
 
         public float KAnonymize(string[] pid,int k)
         {
-
+            if (k > dt.Rows.Count)
+                k = dt.Rows.Count;
             DataView v = new DataView(dt);
             int distPIDs = v.ToTable(true, pid).AsEnumerable().Count();
             while (k > (dt.Rows.Count / distPIDs))
