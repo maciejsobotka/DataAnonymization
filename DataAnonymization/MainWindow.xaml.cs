@@ -74,5 +74,22 @@ namespace DataAnonymization
             tableGrid.DataContext = dt.DefaultView;
             tableGrid.ColumnWidth = 80;
         }
+
+        //=====================================================================
+        // k-Anonymization
+        private void kAnonymization_Click(object sender, RoutedEventArgs e)
+        {
+            if (kValBox.Text == "")
+                kValBox.Text = "4";
+            if (pidValBox.Text == "")
+                pidValBox.Text = "1,2,3";
+            int k = 0;
+            Int32.TryParse(kValBox.Text, out k);
+            string[] pid = pidValBox.Text.Split(',');
+            for (int i = 0; i < pid.Length; ++i )
+                pid[i] = (dt.Columns[Int32.Parse(pid[i]) - 1].ColumnName);
+            KAnonymization kA = new KAnonymization(dt);
+            kValBox.Text = kA.KAnonymize(pid, k).ToString();
+        }
     }
 }
