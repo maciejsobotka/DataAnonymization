@@ -14,24 +14,26 @@ namespace DataAnonymization
 
         }
 
-        public int akAnonymize(string[] x, string[] y, int k)
+        public double AKAnonymize(string[] pid, string s, int k, double a)
         {
-            //if (k > dt.Rows.Count) k = dt.Rows.Count;
-            //DataView v1 = new DataView(dt);
-            //int distXs = v1.ToTable(true, x).AsEnumerable().Count();
-            //DataView v2 = new DataView(dt);
-            //int distYs = v2.ToTable(true, y).AsEnumerable().Count();
-            //if (k > distYs) k = distYs;
-            //while (k > (distYs / distXs))
-            //{
-            //    if (distXs == 1)
-            //        break;
-            //    KAnonymizationStep(x);
-            //    distXs = v1.ToTable(true, x).AsEnumerable().Count();
-            //}
+            if (k > dt.Rows.Count) k = dt.Rows.Count;
+            DataView v = new DataView(dt);
+            string[] allRows = new string[pid.Length + 1];
+            for (int i = 0; i < pid.Length; ++i)
+                allRows[i] = pid[i];
+            allRows[allRows.Length - 1] = s;
+            int distPIDs = v.ToTable(true, pid).AsEnumerable().Count();
+            int distRows = v.ToTable(true, allRows).AsEnumerable().Count();
+               while (k > (dt.Rows.Count / distPIDs) || (double)distPIDs/distRows < a)
+            {
+                if (distPIDs == 1)
+                    break;
+                KAnonymizationStep(pid);
+                distPIDs = v.ToTable(true, pid).AsEnumerable().Count();
+                distRows = v.ToTable(true, allRows).AsEnumerable().Count();
+            }
 
-            //return distYs / distXs;
-            return 0;
+            return (double)distPIDs / distRows;
         }
     }
 }

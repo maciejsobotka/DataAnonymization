@@ -39,7 +39,11 @@
                     <TextBox x:Name="aValBox3" HorizontalAlignment="Left" Height="23" Margin="371,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
                     <Label x:Name="kLabel3" Content="k:" HorizontalAlignment="Left" Margin="333,41,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="kValBox3" HorizontalAlignment="Left" Height="23" Margin="371,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
-                    <Button x:Name="buttonAKAno" Content="(X,Y)-anonymization" HorizontalAlignment="Left" Margin="333,72,0,0" VerticalAlignment="Top" Width="119" Click="akAnonymization_Click"/>
+                    <Label x:Name="pidValLabel3" Content="PID:" HorizontalAlignment="Left" Margin="333,69,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="pidValBox3" HorizontalAlignment="Left" Height="23" Margin="371,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
+                    <Label x:Name="sLabel3" Content="s:" HorizontalAlignment="Left" Margin="333,97,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="sValBox3" HorizontalAlignment="Left" Height="23" Margin="371,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
+                    <Button x:Name="buttonAKAno" Content="(a,k)-anonymization" HorizontalAlignment="Left" Margin="333,128,0,0" VerticalAlignment="Top" Width="119" Click="akAnonymization_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="next-anonymization">

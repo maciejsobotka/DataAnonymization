@@ -97,14 +97,32 @@ namespace DataAnonymization
             for (int i = 0; i < y.Length; ++i)
                 y[i] = (dt2.Columns[Int32.Parse(y[i]) - 1].ColumnName);
             XYAnonymization xyA = new XYAnonymization(dt2);
-            int realK = xyA.xyAnonymize(x, y, k);
+            int realK = xyA.XYAnonymize(x, y, k);
             if (realK < Int32.Parse(kValBox2.Text))
                 kValBox2.Text = realK.ToString();
         }
 
         private void akAnonymization_Click(object sender, RoutedEventArgs e)
         {
+            if (aValBox3.Text == "")
+                aValBox3.Text = "0.5";
+            if (kValBox3.Text == "")
+                kValBox3.Text = "2";
+            if (pidValBox3.Text == "")
+                pidValBox3.Text = "1,2,3";
+            if (sValBox3.Text == "")
+                sValBox3.Text = "4";
 
+            double a = Double.Parse(aValBox3.Text.Replace('.', ','));
+            int k = Int32.Parse(kValBox3.Text);
+            string[] pid = pidValBox3.Text.Split(',');
+            for (int i = 0; i < pid.Length; ++i)
+                pid[i] = (dt3.Columns[Int32.Parse(pid[i]) - 1].ColumnName);
+            string s = (dt3.Columns[Int32.Parse(sValBox3.Text) - 1].ColumnName);
+            AKAnonymization akA = new AKAnonymization(dt3);
+            double realA = akA.AKAnonymize(pid, s, k, a);
+            if (realA < Double.Parse(aValBox3.Text.Replace('.', ',')))
+                aValBox3.Text = realA.ToString().Replace(",", ".");
         }
 
         //=====================================================================

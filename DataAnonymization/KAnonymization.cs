@@ -61,10 +61,17 @@ namespace DataAnonymization
 
         protected void KAnonymizationStep(string[] pid)
         {
+            List<int> dist = new List<int>();
+            DataView v = new DataView(dt);
+            // distincts in PID columns
+            foreach (string col in pid)
+                dist.Add(v.ToTable(true, col).AsEnumerable().Count());
+            int max = dist.Max();
+            // we change only column with biggest distinction
+            int indx = dist.IndexOf(max);
             foreach (DataRow row in dt.Rows)
-                foreach(string col in pid)
-                    // change value with a higher one in tree
-                    row[col] = dataReplace[row[col]];
+                // change value with a higher one in tree
+                row[indx] = dataReplace[row[indx]];
         }
     }
 }
