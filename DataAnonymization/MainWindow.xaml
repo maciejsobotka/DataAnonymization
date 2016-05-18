@@ -9,6 +9,8 @@
                     <DataGrid x:Name="tableGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Height="251" Width="328" ItemsSource="{Binding}"/>
                     <Button x:Name="buttonToXML" Content="To XML" HorizontalAlignment="Left" Margin="10,256,0,0" VerticalAlignment="Top" Width="75" Click="buttonToXML_Click"/>
                     <Button x:Name="buttonFromXML" Content="From XML" HorizontalAlignment="Left" Margin="90,256,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.133,-4" Click="buttonFromXML_Click"/>
+                    <Button x:Name="buttonToDB" Content="To DB" HorizontalAlignment="Left" Margin="170,256,0,0" VerticalAlignment="Top" Width="75" Click="buttonToDB_Click"/>
+                    <Button x:Name="buttonFromDB" Content="From DB" HorizontalAlignment="Left" Margin="250,256,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.133,-4" Click="buttonFromDB_Click"/>
                     <Label x:Name="kValLabel" Content="k:" HorizontalAlignment="Left" Margin="333,13,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="kValBox" HorizontalAlignment="Left" Height="23" Margin="371,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
                     <Label x:Name="pidLabel" Content="PID:" HorizontalAlignment="Left" Margin="333,41,0,0" VerticalAlignment="Top"/>
@@ -21,6 +23,8 @@
                     <DataGrid x:Name="tableGrid2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="251" Width="328" ItemsSource="{Binding}"/>
                     <Button x:Name="buttonToXML2" Content="To XML" HorizontalAlignment="Left" Margin="10,256,0,0" VerticalAlignment="Top" Width="75" Click="buttonToXML2_Click"/>
                     <Button x:Name="buttonFromXML2" Content="From XML" HorizontalAlignment="Left" Margin="90,256,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.133,-4" Click="buttonFromXML2_Click"/>
+                    <Button x:Name="buttonToDB2" Content="To DB" HorizontalAlignment="Left" Margin="170,256,0,0" VerticalAlignment="Top" Width="75" Click="buttonToDB2_Click"/>
+                    <Button x:Name="buttonFromDB2" Content="From DB" HorizontalAlignment="Left" Margin="250,256,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.133,-4" Click="buttonFromDB2_Click"/>
                     <Label x:Name="kValLabel2" Content="k:" HorizontalAlignment="Left" Margin="333,13,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="kValBox2" HorizontalAlignment="Left" Height="23" Margin="371,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
                     <Label x:Name="xLabel2" Content="X:" HorizontalAlignment="Left" Margin="333,41,0,0" VerticalAlignment="Top"/>
@@ -35,6 +39,8 @@
                     <DataGrid x:Name="tableGrid3" HorizontalAlignment="Left" VerticalAlignment="Top" Height="251" Width="328" ItemsSource="{Binding}"/>
                     <Button x:Name="buttonToXML3" Content="To XML" HorizontalAlignment="Left" Margin="10,256,0,0" VerticalAlignment="Top" Width="75" Click="buttonToXML3_Click"/>
                     <Button x:Name="buttonFromXML3" Content="From XML" HorizontalAlignment="Left" Margin="90,256,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.133,-4" Click="buttonFromXML3_Click"/>
+                    <Button x:Name="buttonToDB3" Content="To DB" HorizontalAlignment="Left" Margin="170,256,0,0" VerticalAlignment="Top" Width="75" Click="buttonToDB3_Click"/>
+                    <Button x:Name="buttonFromDB3" Content="From DB" HorizontalAlignment="Left" Margin="250,256,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.133,-4" Click="buttonFromDB3_Click"/>
                     <Label x:Name="aValLabel3" Content="a:" HorizontalAlignment="Left" Margin="333,13,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="aValBox3" HorizontalAlignment="Left" Height="23" Margin="371,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
                     <Label x:Name="kLabel3" Content="k:" HorizontalAlignment="Left" Margin="333,41,0,0" VerticalAlignment="Top"/>
@@ -51,6 +57,8 @@
                     <DataGrid x:Name="tableGrid4" HorizontalAlignment="Left" VerticalAlignment="Top" Height="251" Width="328" ItemsSource="{Binding}"/>
                     <Button x:Name="buttonToXML4" Content="To XML" HorizontalAlignment="Left" Margin="10,256,0,0" VerticalAlignment="Top" Width="75" Click="buttonToXML4_Click"/>
                     <Button x:Name="buttonFromXML4" Content="From XML" HorizontalAlignment="Left" Margin="90,256,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.133,-4" Click="buttonFromXML4_Click"/>
+                    <Button x:Name="buttonToDB4" Content="To DB" HorizontalAlignment="Left" Margin="170,256,0,0" VerticalAlignment="Top" Width="75" Click="buttonToDB4_Click"/>
+                    <Button x:Name="buttonFromDB4" Content="From DB" HorizontalAlignment="Left" Margin="250,256,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.133,-4" Click="buttonFromDB4_Click"/>
                     <Label x:Name="kValLabel4" Content="k:" HorizontalAlignment="Left" Margin="333,13,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="kValBox4" HorizontalAlignment="Left" Height="23" Margin="371,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
                     <Label x:Name="eLabel4" Content="e:" HorizontalAlignment="Left" Margin="333,41,0,0" VerticalAlignment="Top"/>

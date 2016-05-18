@@ -27,10 +27,12 @@ namespace DataAnonymization
         private DataTable dt3;
         private DataTable dt4;
         private DataToFromXML dtfXML;
+        private DataToFromDB dtfDB;
         public MainWindow()
         {
             InitializeComponent();
             dtfXML = new DataToFromXML();
+            dtfDB = new DataToFromDB();
             dt = InitializeDataGrid(tableGrid, "dataTable");
             dt2 = InitializeDataGrid(tableGrid2, "dataTable2");
             dt3 = InitializeDataGrid(tableGrid3, "dataTable3");
@@ -186,6 +188,48 @@ namespace DataAnonymization
         private void buttonFromXML4_Click(object sender, RoutedEventArgs e)
         {
             dt4 = dtfXML.GetDataFromXML(tableGrid4, "dataTable4");
+        }
+
+        //=====================================================================
+        // DB Serialization
+        private void buttonToDB_Click(object sender, RoutedEventArgs e)
+        {
+            dtfDB.SaveDataToDB(dt, "dataTable");
+        }
+
+        private void buttonFromDB_Click(object sender, RoutedEventArgs e)
+        {
+            dt = dtfDB.GetDataFromDB(tableGrid, "dataTable");
+        }
+
+        private void buttonToDB2_Click(object sender, RoutedEventArgs e)
+        {
+            dtfDB.SaveDataToDB(dt2, "dataTable2");
+        }
+
+        private void buttonFromDB2_Click(object sender, RoutedEventArgs e)
+        {
+            dt2 = dtfDB.GetDataFromDB(tableGrid2, "dataTable2");
+        }
+
+        private void buttonToDB3_Click(object sender, RoutedEventArgs e)
+        {
+            dtfDB.SaveDataToDB(dt3, "dataTable3");
+        }
+
+        private void buttonFromDB3_Click(object sender, RoutedEventArgs e)
+        {
+            dt3 = dtfDB.GetDataFromDB(tableGrid3, "dataTable3");
+        }
+
+        private void buttonToDB4_Click(object sender, RoutedEventArgs e)
+        {
+            dtfDB.SaveDataToDB(dt4, "dataTable4");
+        }
+
+        private void buttonFromDB4_Click(object sender, RoutedEventArgs e)
+        {
+            dt4 = dtfDB.GetDataFromDB(tableGrid4, "dataTable4");
         }
     }
 }
