@@ -12,6 +12,7 @@ namespace DataAnonymization
     {
         protected Hashtable dataReplace;
         protected DataTable dt;
+        protected Func<DataRow, DataRow, bool> EqualRow;
         public KAnonymization(DataTable dt){
             dataReplace = new Hashtable();
             // All
@@ -41,6 +42,7 @@ namespace DataAnonymization
             dataReplace.Add("Warszawa", "Mazowieckie");
             dataReplace.Add("Mazowieckie", "*");
 
+            this.EqualRow = (r, r2) => r.ItemArray.SequenceEqual(r2.ItemArray);
             this.dt = dt;
         }
 
@@ -48,20 +50,23 @@ namespace DataAnonymization
         {
             if (k > dt.Rows.Count) k = dt.Rows.Count;
             DataView v = new DataView(dt);
-            int smallGroup = 0;
-            while (smallGroup < k)
+            int smallK = 0;
+            while (smallK < k)
             {
                 DataTable allPIDs = v.ToTable(false, pid);  // all rows
                 DataTable PIDs = v.ToTable(true, pid);      // distinct rows
                 int[] groups = new int[PIDs.Rows.Count];
                 for (int i = 0; i < PIDs.Rows.Count; ++i)
-                    foreach (DataRow r in allPIDs.Rows)     // count rows in groups
-                        if (r.ItemArray.SequenceEqual(PIDs.Rows[i].ItemArray))
-                            groups[i]++;
-                smallGroup = groups.Min();
-                if (smallGroup < k) KAnonymizationStep(pid);
+                {
+                    groups[i] = allPIDs.AsEnumerable()
+                        .GroupBy(r => EqualRow(r, PIDs.Rows[i]))
+                        .Select(grp => grp.Count()).Min();
+                }
+                smallK = groups.Min();
+
+                if (smallK < k) KAnonymizationStep(pid);
             }
-            return smallGroup;
+            return smallK;
         }
 
         protected void KAnonymizationStep(string[] pid)

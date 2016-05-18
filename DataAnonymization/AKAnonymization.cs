@@ -14,24 +14,6 @@ namespace DataAnonymization
 
         }
 
-        //       {
-        //    if (k > dt.Rows.Count) k = dt.Rows.Count;
-        //    DataView v = new DataView(dt);
-        //    int smallGroup = 0;
-        //    while (smallGroup < k)
-        //    {
-        //        DataTable allPIDs = v.ToTable(false, pid);  // all rows
-        //        DataTable PIDs = v.ToTable(true, pid);      // distinct rows
-        //        int[] groups = new int[PIDs.Rows.Count];
-        //        for (int i = 0; i < PIDs.Rows.Count; ++i)
-        //            foreach (DataRow r in allPIDs.Rows)     // count rows in groups
-        //                if (r.ItemArray.SequenceEqual(PIDs.Rows[i].ItemArray))
-        //                    groups[i]++;
-        //        smallGroup = groups.Min();
-        //        if (smallGroup < k) KAnonymizationStep(pid);
-        //    }
-        //    return smallGroup;
-        //}
         public double AKAnonymize(string[] pid, string s, int k, double a)
         {
             if (k > dt.Rows.Count) k = dt.Rows.Count;
@@ -42,33 +24,35 @@ namespace DataAnonymization
             allRows[allRows.Length - 1] = s;
 
             DataView v = new DataView(dt);
-            int smallGroup = 0;
+            int smallK = 0;
             double bigA = 1.0;
-            while (smallGroup < k || bigA > a)
+            int distS = v.ToTable(true, s).AsEnumerable().Count();
+            DataTable distSTable = v.ToTable(true, s);
+            while (smallK < k || bigA > a)
             {
                 DataTable PIDs = v.ToTable(true, pid);          // distinct PID rows
-                DataTable distAll = v.ToTable(true, allRows);   // distinct all rows
-                DataView v2 = new DataView(distAll);
-                DataTable PID2s = v2.ToTable(false, pid);
-                DataTable allPID2s = v.ToTable(false, pid);
-                int[] groups = new int[PIDs.Rows.Count];
-                int[] groups2 = new int[PIDs.Rows.Count];
-                for (int i = 0; i < PIDs.Rows.Count; ++i){
-                    foreach (DataRow r in PID2s.Rows)     // count rows in groups
-                        if (r.ItemArray.SequenceEqual(PIDs.Rows[i].ItemArray))
-                            groups[i]++;
-                    foreach (DataRow r in allPID2s.Rows)     // count rows in groups
-                        if (r.ItemArray.SequenceEqual(PIDs.Rows[i].ItemArray))
-                            groups2[i]++;
-                }
-                double[] aS = new double[PIDs.Rows.Count];
+                DataTable allR = v.ToTable(false, allRows);     // all rows with s
+                int[] kk = new int[PIDs.Rows.Count];
+                double[] aa = new double[PIDs.Rows.Count];
+                int[][] groups = new int[PIDs.Rows.Count][];
+                for(int i=0; i < PIDs.Rows.Count; ++i)
+                    groups[i] = new int[distS];
                 for (int i = 0; i < PIDs.Rows.Count; ++i)
                 {
-                    aS[i] = (double)((groups2[i]-groups[i]+1)/(double)groups2[i]);
+                    foreach (DataRow r in allR.Rows)            // count rows in groups
+                        for(int j = 0; j < distS; ++j)
+                            if (PIDs.Rows[i].ItemArray.All(x => r.ItemArray.Contains(x))
+                                && distSTable.Rows[j].ItemArray.All(x => r.ItemArray.Contains(x)))
+                                groups[i][j]++;
                 }
-                smallGroup = groups.Min();
-                bigA = aS.Max();
-                if (smallGroup < k || bigA > a) KAnonymizationStep(pid);
+                for (int i = 0; i < PIDs.Rows.Count; ++i)
+                {                                               // get k and a for each group
+                    kk[i] = groups[i].Sum();
+                    aa[i] = (double) groups[i].Max() / groups[i].Sum();
+                }
+                smallK = kk.Min();
+                bigA = aa.Max();
+                if (smallK < k || bigA > a) KAnonymizationStep(pid);
                 if (groups.Length == 1) break;
             }
             return bigA;

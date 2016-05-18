@@ -109,7 +109,7 @@ namespace DataAnonymization
             if (aValBox3.Text == "")
                 aValBox3.Text = "0.5";
             if (kValBox3.Text == "")
-                kValBox3.Text = "2";
+                kValBox3.Text = "4";
             if (pidValBox3.Text == "")
                 pidValBox3.Text = "1,2,3";
             if (sValBox3.Text == "")
