@@ -46,17 +46,22 @@ namespace DataAnonymization
 
         public int KAnonymize(string[] pid,int k)
         {
-            if (k > dt.Rows.Count)
-                k = dt.Rows.Count;
+            if (k > dt.Rows.Count) k = dt.Rows.Count;
             DataView v = new DataView(dt);
-            int distPIDs = v.ToTable(true, pid).AsEnumerable().Count();
-            while (k > (dt.Rows.Count / distPIDs))
+            int smallGroup = 0;
+            while (smallGroup < k)
             {
-                KAnonymizationStep(pid);
-                distPIDs = v.ToTable(true, pid).AsEnumerable().Count();
+                DataTable allPIDs = v.ToTable(false, pid);  // all rows
+                DataTable PIDs = v.ToTable(true, pid);      // distinct rows
+                int[] groups = new int[PIDs.Rows.Count];
+                for (int i = 0; i < PIDs.Rows.Count; ++i)
+                    foreach (DataRow r in allPIDs.Rows)     // count rows in groups
+                        if (r.ItemArray.SequenceEqual(PIDs.Rows[i].ItemArray))
+                            groups[i]++;
+                smallGroup = groups.Min();
+                if (smallGroup < k) KAnonymizationStep(pid);
             }
-
-            return dt.Rows.Count / distPIDs;
+            return smallGroup;
         }
 
         protected void KAnonymizationStep(string[] pid)

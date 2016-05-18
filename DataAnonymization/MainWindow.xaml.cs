@@ -25,12 +25,14 @@ namespace DataAnonymization
         private DataTable dt;
         private DataTable dt2;
         private DataTable dt3;
+        private DataTable dt4;
         public MainWindow()
         {
             InitializeComponent();
             dt = InitializeDataGrid(tableGrid, "dataTable");
             dt2 = InitializeDataGrid(tableGrid2, "dataTable2");
             dt3 = InitializeDataGrid(tableGrid3, "dataTable3");
+            dt4 = InitializeDataGrid(tableGrid4, "dataTable4");
         }
 
         //=====================================================================
@@ -121,8 +123,31 @@ namespace DataAnonymization
             string s = (dt3.Columns[Int32.Parse(sValBox3.Text) - 1].ColumnName);
             AKAnonymization akA = new AKAnonymization(dt3);
             double realA = akA.AKAnonymize(pid, s, k, a);
-            if (realA < Double.Parse(aValBox3.Text.Replace('.', ',')))
+            if (realA > Double.Parse(aValBox3.Text.Replace('.', ',')))
                 aValBox3.Text = realA.ToString().Replace(",", ".");
+        }
+
+        private void keAnonymization_Click(object sender, RoutedEventArgs e)
+        {
+            if (kValBox4.Text == "")
+                kValBox4.Text = "4";
+            if (eValBox4.Text == "")
+                eValBox4.Text = "170";
+            if (pidValBox4.Text == "")
+                pidValBox4.Text = "1,2,3";
+            if (sValBox4.Text == "")
+                sValBox4.Text = "4";
+
+            int k = Int32.Parse(kValBox4.Text);
+            int ee = Int32.Parse(eValBox4.Text);
+            string[] pid = pidValBox4.Text.Split(',');
+            for (int i = 0; i < pid.Length; ++i)
+                pid[i] = (dt4.Columns[Int32.Parse(pid[i]) - 1].ColumnName);
+            string s = (dt4.Columns[Int32.Parse(sValBox4.Text) - 1].ColumnName);
+            KEAnonymization keA = new KEAnonymization(dt4);
+            int realK = keA.KEAnonymize(pid, s, k, ee);
+            if (realK < Int32.Parse(kValBox4.Text))
+                kValBox4.Text = realK.ToString();
         }
 
         //=====================================================================
@@ -175,6 +200,16 @@ namespace DataAnonymization
         private void buttonFromXML3_Click(object sender, RoutedEventArgs e)
         {
             dt3 = GetDataFromXML(tableGrid3, "dataTable3");
+        }
+
+        private void buttonToXML4_Click(object sender, RoutedEventArgs e)
+        {
+            SaveDataToXML(dt4, "dataTable4");
+        }
+
+        private void buttonFromXML4_Click(object sender, RoutedEventArgs e)
+        {
+            dt4 = GetDataFromXML(tableGrid4, "dataTable4");
         }
     }
 }

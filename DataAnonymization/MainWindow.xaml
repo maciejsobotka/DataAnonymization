@@ -1,7 +1,7 @@
 ﻿<Window x:Name="mainWin" x:Class="DataAnonymization.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Data Anonimization" Height="376" Width="481" Icon="DataAnonymization.ico">
+        Title="Data Anonymization" Height="376" Width="481" Icon="DataAnonymization.ico">
     <Grid Margin="0,0,2,0">
         <TabControl HorizontalAlignment="Left" Height="346" VerticalAlignment="Top" Width="463">
             <TabItem Header="k-anonymization">
@@ -46,9 +46,27 @@
                     <Button x:Name="buttonAKAno" Content="(a,k)-anonymization" HorizontalAlignment="Left" Margin="333,128,0,0" VerticalAlignment="Top" Width="119" Click="akAnonymization_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="next-anonymization">
+            <TabItem Header="(k,e)-anonymization">
+                <Grid>
+                    <DataGrid x:Name="tableGrid4" HorizontalAlignment="Left" VerticalAlignment="Top" Height="251" Width="328" ItemsSource="{Binding}"/>
+                    <Button x:Name="buttonToXML4" Content="To XML" HorizontalAlignment="Left" Margin="10,256,0,0" VerticalAlignment="Top" Width="75" Click="buttonToXML4_Click"/>
+                    <Button x:Name="buttonFromXML4" Content="From XML" HorizontalAlignment="Left" Margin="90,256,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.133,-4" Click="buttonFromXML4_Click"/>
+                    <Label x:Name="kValLabel4" Content="k:" HorizontalAlignment="Left" Margin="333,13,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="kValBox4" HorizontalAlignment="Left" Height="23" Margin="371,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
+                    <Label x:Name="eLabel4" Content="e:" HorizontalAlignment="Left" Margin="333,41,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="eValBox4" HorizontalAlignment="Left" Height="23" Margin="371,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
+                    <Label x:Name="pidValLabel4" Content="PID:" HorizontalAlignment="Left" Margin="333,69,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="pidValBox4" HorizontalAlignment="Left" Height="23" Margin="371,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
+                    <Label x:Name="sLabel4" Content="s:" HorizontalAlignment="Left" Margin="333,97,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="sValBox4" HorizontalAlignment="Left" Height="23" Margin="371,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
+                    <Button x:Name="buttonKEAno" Content="(k,e)-anonymization" HorizontalAlignment="Left" Margin="333,128,0,0" VerticalAlignment="Top" Width="119" Click="keAnonymization_Click"/>
+                </Grid>
+            </TabItem>
+            <!--
+             <TabItem Header="next-anonymization">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
+            -->
         </TabControl>
 
     </Grid>
