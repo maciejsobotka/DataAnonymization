@@ -26,9 +26,11 @@ namespace DataAnonymization
         private DataTable dt2;
         private DataTable dt3;
         private DataTable dt4;
+        private DataToFromXML dtfXML;
         public MainWindow()
         {
             InitializeComponent();
+            dtfXML = new DataToFromXML();
             dt = InitializeDataGrid(tableGrid, "dataTable");
             dt2 = InitializeDataGrid(tableGrid2, "dataTable2");
             dt3 = InitializeDataGrid(tableGrid3, "dataTable3");
@@ -39,14 +41,8 @@ namespace DataAnonymization
         // Data Init
         private DataTable InitializeDataGrid(DataGrid dataGrid, string tableName)
         {
-            DataTable dataTable = new DataTable(tableName);
-            if (File.Exists(tableName + ".xml"))
-            {
-                DataSet ds = new DataSet();
-                ds.ReadXml(tableName + ".xml");
-                dataTable = ds.Tables[0];
-            }
-            else
+            DataTable dataTable = dtfXML.GetDataFromXML(dataGrid, tableName);
+            if (dataTable == null)
             {
                 dataTable.Columns.Add("Płeć");
                 dataTable.Columns.Add("Zawód");
@@ -56,9 +52,9 @@ namespace DataAnonymization
                 {
                     dataTable.Columns[i].DefaultValue = String.Empty;
                 }
+                dataGrid.DataContext = dataTable.DefaultView;
+                dataGrid.ColumnWidth = 80;
             }
-            dataGrid.DataContext = dataTable.DefaultView;
-            dataGrid.ColumnWidth = 80;
 
             return dataTable;
         }
@@ -152,64 +148,44 @@ namespace DataAnonymization
 
         //=====================================================================
         // XML Serialization
-        private void SaveDataToXML(DataTable dataTable, string tableName)
-        {
-            dataTable.WriteXml(tableName + ".xml");
-        }
-
-        private DataTable GetDataFromXML(DataGrid dataGrid, string tableName)
-        {
-            DataTable dataTable = new DataTable(tableName);
-            if (File.Exists(tableName + ".xml"))
-            {
-                DataSet ds = new DataSet();
-                ds.ReadXml(tableName + ".xml");
-                dataTable = ds.Tables[0];
-            }
-            dataGrid.DataContext = dataTable.DefaultView;
-            dataGrid.ColumnWidth = 80;
-
-            return dataTable;
-        }
-
         private void buttonToXML_Click(object sender, RoutedEventArgs e)
         {
-            SaveDataToXML(dt, "dataTable");
+            dtfXML.SaveDataToXML(dt, "dataTable");
         }
 
         private void buttonFromXML_Click(object sender, RoutedEventArgs e)
         {
-            dt = GetDataFromXML(tableGrid, "dataTable");
+            dt = dtfXML.GetDataFromXML(tableGrid, "dataTable");
         }
 
         private void buttonToXML2_Click(object sender, RoutedEventArgs e)
         {
-            SaveDataToXML(dt2, "dataTable2");
+            dtfXML.SaveDataToXML(dt2, "dataTable2");
         }
 
         private void buttonFromXML2_Click(object sender, RoutedEventArgs e)
         {
-            dt2 = GetDataFromXML(tableGrid2, "dataTable2");
+            dt2 = dtfXML.GetDataFromXML(tableGrid2, "dataTable2");
         }
 
         private void buttonToXML3_Click(object sender, RoutedEventArgs e)
         {
-            SaveDataToXML(dt3, "dataTable3");
+            dtfXML.SaveDataToXML(dt3, "dataTable3");
         }
 
         private void buttonFromXML3_Click(object sender, RoutedEventArgs e)
         {
-            dt3 = GetDataFromXML(tableGrid3, "dataTable3");
+            dt3 = dtfXML.GetDataFromXML(tableGrid3, "dataTable3");
         }
 
         private void buttonToXML4_Click(object sender, RoutedEventArgs e)
         {
-            SaveDataToXML(dt4, "dataTable4");
+            dtfXML.SaveDataToXML(dt4, "dataTable4");
         }
 
         private void buttonFromXML4_Click(object sender, RoutedEventArgs e)
         {
-            dt4 = GetDataFromXML(tableGrid4, "dataTable4");
+            dt4 = dtfXML.GetDataFromXML(tableGrid4, "dataTable4");
         }
     }
 }

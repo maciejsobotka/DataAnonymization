@@ -57,6 +57,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AKAnonymization.cs" />
+    <Compile Include="DataReplaceTree.cs" />
+    <Compile Include="DataToFromDB.cs" />
+    <Compile Include="DataToFromXML.cs" />
     <Compile Include="KEAnonymization.cs" />
     <Compile Include="XYAnonymization.cs" />
     <Page Include="MainWindow.xaml">

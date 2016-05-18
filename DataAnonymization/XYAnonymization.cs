@@ -40,7 +40,6 @@ namespace DataAnonymization
                 }
                 smallK = groups.Min();
                 if (smallK < k) KAnonymizationStep(x);
-                if (groups.Length == 1) break;
             }
             return smallK;
         }

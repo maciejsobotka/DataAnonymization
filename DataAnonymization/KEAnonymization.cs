@@ -47,30 +47,19 @@ namespace DataAnonymization
             int min = values.Min();
             if (max - min < e)                  // check if need to change values
             {
-                int interval = e - (max - min)/2;
+                int interval = e - (max - min);
+                int rand = interval / 10;       // 10% random
                 Random rnd = new Random();      // values changed into intervals
                 for(int i = 0; i < rows.Count; ++i)
                 {
-                    int x = rnd.Next(interval);
+                    int x = rnd.Next(rand);
                     if (values[i] == max)
-                        if(x < (interval - x))
-                            dt.Rows[rows[i]][idx] = "[" + (values[i] - x).ToString()
-                                + ", " + (values[i] + (interval - x)).ToString() + "]";
-                        else
-                            dt.Rows[rows[i]][idx] = "[" + (values[i] - (interval - x)).ToString()
-                                + ", " + (values[i] + x).ToString() + "]";
-
-                    else if (values[i] == min)
-                            if (x < (interval - x))
-                                dt.Rows[rows[i]][idx] = "[" + (values[i] - (interval - x)).ToString()
-                                    + ", " + (values[i] + x).ToString() + "]";
-                            else
-                                dt.Rows[rows[i]][idx] = "[" + (values[i] - x).ToString()
-                                    + ", " + (values[i] + (interval - x)).ToString() + "]";
+                        dt.Rows[rows[i]][idx] = "[" + (values[i] - interval/2 - x).ToString()
+                            + ", " + (values[i] + interval/2 + x).ToString() + "]";
 
                     else
-                        dt.Rows[rows[i]][idx] = "[" + (values[i] - x).ToString()
-                            + ", " + (values[i] + (interval - x)).ToString() + "]";
+                        dt.Rows[rows[i]][idx] = "[" + (values[i] - interval/2 - x).ToString()
+                            + ", " + (values[i] + interval/2 + x).ToString() + "]";
                 }
             }
         }

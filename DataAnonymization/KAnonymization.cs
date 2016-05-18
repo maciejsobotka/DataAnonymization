@@ -10,40 +10,14 @@ namespace DataAnonymization
 {
     class KAnonymization
     {
-        protected Hashtable dataReplace;
         protected DataTable dt;
+        protected DataReplaceTree drt;
         protected Func<DataRow, DataRow, bool> EqualRow;
-        public KAnonymization(DataTable dt){
-            dataReplace = new Hashtable();
-            // All
-            dataReplace.Add("*", "*");
-            // Płeć
-            dataReplace.Add("M", "*");
-            dataReplace.Add("K", "*");
-            // Zawód
-            dataReplace.Add("Inżynier", "Techniczny");
-            dataReplace.Add("Techniczny", "*");
-            dataReplace.Add("Malarz", "Artystyczny");
-            dataReplace.Add("Tancerz", "Artystyczny");
-            dataReplace.Add("Muzyk", "Artystyczny");
-            dataReplace.Add("Śpiewak", "Artystyczny");
-            dataReplace.Add("Artystyczny", "*");
-            // Miasto
-            dataReplace.Add("Kraków", "Małopolskie");
-            dataReplace.Add("Małopolskie", "*");
-            dataReplace.Add("Opole", "Opolskie");
-            dataReplace.Add("Brzeg", "Opolskie");
-            dataReplace.Add("Opolskie", "*");
-            dataReplace.Add("Wrocław", "Dolnośląskie");
-            dataReplace.Add("Oława", "Dolnośląskie");
-            dataReplace.Add("Dolnośląskie", "*");
-            dataReplace.Add("Poznań", "Wielkopolskie");
-            dataReplace.Add("Wielkopolskie", "*");
-            dataReplace.Add("Warszawa", "Mazowieckie");
-            dataReplace.Add("Mazowieckie", "*");
-
+        public KAnonymization(DataTable dt)
+        {
             this.EqualRow = (r, r2) => r.ItemArray.SequenceEqual(r2.ItemArray);
             this.dt = dt;
+            this.drt = new DataReplaceTree();
         }
 
         public int KAnonymize(string[] pid,int k)
@@ -81,7 +55,7 @@ namespace DataAnonymization
             int indx = dist.IndexOf(max);
             foreach (DataRow row in dt.Rows)
                 // change value with a higher one in tree
-                row[indx] = dataReplace[row[indx]];
+                row[indx] = drt.DataReplace(row[indx]);
         }
     }
 }
