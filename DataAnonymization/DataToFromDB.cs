@@ -14,32 +14,37 @@ namespace DataAnonymization
         public void SaveDataToDB(DataTable dataTable, string tableName)
         {
             string connectionString = GetConnectionString();
+            string query = "DELETE FROM dbo.[" + tableName + "]";
             // Open a connection to the database.
+
             using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, connection))
+            {   // Delete existing rows in DB.
+                connection.Open();
+                cmd.ExecuteReader();
+            }
+            // Create the SqlBulkCopy object.
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection))
             {
                 connection.Open();
-
-                // Create the SqlBulkCopy object. 
-                using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connection))
+                // Map columns
+                foreach (DataColumn col in dataTable.Columns)
                 {
-                    // Map columns
-                    foreach (DataColumn col in dataTable.Columns)
-                    {
-                        bulkCopy.ColumnMappings.Add(col.ColumnName, col.ColumnName);
-                    }
-                    bulkCopy.BulkCopyTimeout = 600;
-                    bulkCopy.DestinationTableName = "dbo." + tableName;
-                    try
-                    {
-                        // Write from the source to the destination.
-                        bulkCopy.WriteToServer(dataTable);
-                    }
-                    catch (Exception ex)
-                    {
-                        System.IO.StreamWriter file = new System.IO.StreamWriter("LOG.txt");
-                        file.WriteLine(ex.Message);
-                        file.Close();
-                    }
+                    bulkCopy.ColumnMappings.Add(col.ColumnName, col.ColumnName);
+                }
+                bulkCopy.BulkCopyTimeout = 600;
+                bulkCopy.DestinationTableName = "dbo." + tableName;
+                try
+                {
+                    // Write from the source to the destination.
+                    bulkCopy.WriteToServer(dataTable);
+                }
+                catch (Exception ex)
+                {
+                    System.IO.StreamWriter file = new System.IO.StreamWriter("LOG.txt");
+                    file.WriteLine(ex.Message);
+                    file.Close();
                 }
             }
         }
