@@ -45,6 +45,13 @@ namespace DataAnonymization
 
         protected void KAnonymizationStep(string[] pid)
         {
+            if (pid.Length == 1)
+            {
+                foreach (DataRow row in dt.Rows)
+                    // change value with a higher one in tree
+                    row[pid[0]] = drt.DataReplace(row[pid[0]]);
+                return;
+            }
             List<int> dist = new List<int>();
             DataView v = new DataView(dt);
             // distincts in PID columns
